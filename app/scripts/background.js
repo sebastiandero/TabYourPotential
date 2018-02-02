@@ -2,4 +2,12 @@ browser.runtime.onInstalled.addListener((details) => {
   console.log('previousVersion', details.previousVersion);
 });
 
-browser.tabs.query({}).then(console.log)
+
+
+let printUrls = arr => {
+  arr.forEach(tab => {
+    console.log(tab.url);
+  });
+};
+
+browser.tabs.query({}).then(printUrls);
