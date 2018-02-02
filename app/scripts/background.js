@@ -2,12 +2,21 @@ browser.runtime.onInstalled.addListener((details) => {
   console.log('previousVersion', details.previousVersion);
 });
 
+let tabs = Array();
 
-
-let printUrls = arr => {
-  arr.forEach(tab => {
-    console.log(tab.url);
+let save = arr => {
+  tabs.forEach(element => {
+    console.log(element);
   });
+  tabs = arr;
 };
 
-browser.tabs.query({}).then(printUrls);
+let saveTabs = () => {
+  browser.tabs.query({}).then(save);
+};
+
+let loadTabs = () => {
+  tabs.forEach(tab => {
+    browser.tabs.create({url: tab.url});
+  });
+};
