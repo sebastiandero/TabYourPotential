@@ -1,6 +1,6 @@
 browser.runtime.onInstalled.addListener((details) => {
   console.log('previousVersion', details.previousVersion)
-})
+});
 
 let currentContext = "testContext";
 
@@ -44,8 +44,9 @@ let reloadTabs = () => {
   if (storageWrapper) {
     saveForContext(currentContext);
     removeAllTabs().then(tempTab => {
-      loadTabsFromContext();
-      browser.tabs.remove(tempTab.id);
+      loadTabsFromContext().then((val) => {
+        browser.tabs.remove(tempTab.id);
+      });
     });
   }
 };
@@ -53,12 +54,12 @@ let reloadTabs = () => {
 let removeAllTabs = () => {
   return new Promise((resolve, reject) => {
     browser.tabs.query({}).then(arr => {
-      return browser.tabs.create({});
-    }).catch(reject)
-    .then((tempTab) => {
-      browser.tabs.remove(arr. map(tab => tab.id))
-      .catch(reject)
-      .then(() => resolve(tempTab));
+      browser.tabs.create({})
+      .then((tempTab) => {
+        browser.tabs.remove(arr.map(tab => tab.id))
+        .catch(reject)
+        .then(() => resolve(tempTab));
+      });
     });
   });
 }
@@ -66,5 +67,20 @@ let removeAllTabs = () => {
 let loadTabsFromContext = (contextName) => {
   return new Promise((resolve,reject)=> {
     let storageWrapper = getStorageContext();
+
+    if(storageWrapper.currentContext) {
+      let currContext = storageWrapper.currentContext;
+      let tabs = storageWrapper.contexts[currContext];
+
+      let pr = new Promise((resolve, reject) => {
+        tabs.forEach(tab => {
+          pr = pr.then( _ =>
+          browser.tabs.create({
+            url: tab.url
+          }));
+        });
+        pr = pr.then(resolve);
+      });
+    }
   });
 }
