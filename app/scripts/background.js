@@ -24,14 +24,14 @@ let saveForContext = (tabsToSave, contextName) => {
   let storageWrapper = JSON.parse(localStorage.getItem('TYP_StorageWrapper'));
 
   if (storageWrapper) {
-    storageWrapper.contexts[contextName] = tabs;
+    storageWrapper.contexts[contextName] = tabsToSave;
   }
   else {
     storageWrapper = {
       contexts: {}
     };
 
-    storageWrapper.contexts[contextName] = tabs;
+    storageWrapper.contexts[contextName] = tabsToSave;
   }
  
   localStorage.setItem('TYP_StorageWrapper', JSON.stringify(storageWrapper));
