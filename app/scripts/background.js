@@ -4,16 +4,16 @@ browser.runtime.onInstalled.addListener((details) => {
 
 let currentContext = "testContext";
 
+let getStorageContext = () => {
+  return JSON.parse(localStorage.getItem('TYP_StorageWrapper'));
+}
+
 let saveTabs = (contextName) => {
   browser.tabs.query({}).then(arr => saveForContext(arr, contextName));
 };
 
 let loadTabs = () => {
-  tabs.forEach(tab => {
-    browser.tabs.create({
-      url: tab.url
-    });
-  });
+
 };
 
 let saveForContext = (tabsToSave, contextName) => {
@@ -23,7 +23,7 @@ let saveForContext = (tabsToSave, contextName) => {
     name: contextName
   };
 
-  let storageWrapper = JSON.parse(localStorage.getItem('TYP_StorageWrapper'));
+  let storageWrapper = getStorageContext();
 
   if (storageWrapper) {
     storageWrapper.contexts[contextName] = tabsToSave;
@@ -39,7 +39,7 @@ let saveForContext = (tabsToSave, contextName) => {
 }
 
 let reloadTabs = () => {
-  let storageWrapper = JSON.parse(localStorage.getItem('TYP_StorageWrapper'));
+  let storageWrapper = getStorageContext();
 
   if (storageWrapper) {
     saveForContext(currentContext);
@@ -60,5 +60,11 @@ let removeAllTabs = () => {
       .catch(reject)
       .then(() => resolve(tempTab));
     });
+  });
+}
+
+let loadTabsFromContext = (contextName) => {
+  return new Promise((resolve,reject)=> {
+    let storageWrapper = JSON.parse()
   });
 }
