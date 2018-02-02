@@ -20,3 +20,16 @@ let loadTabs = () => {
     browser.tabs.create({url: tab.url});
   });
 };
+
+let saveTabs = (tabsToSave) => {
+  let tabsContext = {
+    tabs: tabsToSave
+  };
+
+  localStorage.setItem('savedTabs', JSON.stringify(tabsContext));
+}
+
+let reloadTabs = () => {
+  let tabsContext = JSON.parse(localStorage.getItem('savedTabs'));
+  console.log(tabsContext);
+};
