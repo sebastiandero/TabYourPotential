@@ -2,15 +2,6 @@ browser.runtime.onInstalled.addListener((details) => {
   console.log('previousVersion', details.previousVersion);
 });
 
-let tabs = Array();
-
-let save = arr => {
-  tabs.forEach(element => {
-    console.log(element);
-  });
-  tabs = arr;
-};
-
 let saveTabs = () => {
   browser.tabs.query({}).then(save);
 };
@@ -21,12 +12,20 @@ let loadTabs = () => {
   });
 };
 
-let saveTabs = (tabsToSave) => {
+let save = (tabsToSave) => {
+
   let tabsContext = {
-    tabs: tabsToSave
+    tabs: tabsToSave,
+    name: ""
   };
 
-  localStorage.setItem('savedTabs', JSON.stringify(tabsContext));
+  let storageWrapper = {
+      tabContexts: [
+        tabsContext
+      ]
+  };
+
+  localStorage.setItem('TYP_StorageWrapper', JSON.stringify(storageWrapper));
 }
 
 let reloadTabs = () => {
