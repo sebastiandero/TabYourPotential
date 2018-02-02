@@ -1,0 +1,18 @@
+{
+  "appName": {
+    "message": "TabYourPotential",
+    "description": "The name of the application"
+  },
+  "appShortName": {
+    "message": "TYP",
+    "description": "The short_name (maximum of 12 characters recommended) is a short version of the app's name."
+  },
+  "appDescription": {
+    "message": "Provide context to your tabs, save them in workspaces",
+    "description": "The description of the application"
+  },
+  "browserActionTitle": {
+    "message": "TabYourPotential",
+    "description": "The title of the browser action button"
+  }
+}
