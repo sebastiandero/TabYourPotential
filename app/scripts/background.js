@@ -8,23 +8,32 @@ let saveTabs = () => {
 
 let loadTabs = () => {
   tabs.forEach(tab => {
-    browser.tabs.create({url: tab.url});
+    browser.tabs.create({
+      url: tab.url
+    });
   });
 };
 
-let saveForContext = (tabs, context) => {
+let saveForContext = (tabs, contextName) => {
 
   let tabsContext = {
     tabs: tabsToSave,
-    name: context
+    name: contextName
   };
 
-  let storageWrapper = {
-      tabContexts: [
-        tabsContext
-      ]
-  };
+  let storageWrapper = JSON.parse(localStorage.getItem('TYP_StorageWrapper'));
 
+  if (storageWrapper) {
+    storageWrapper.contexts[contextName] = tabs;
+  }
+  else {
+    storageWrapper = {
+      contexts: {}
+    };
+
+    storageWrapper.contexts[contextName] = tabs; 
+  }
+ 
   localStorage.setItem('TYP_StorageWrapper', JSON.stringify(storageWrapper));
 }
 
