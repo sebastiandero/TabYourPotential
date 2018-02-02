@@ -38,11 +38,11 @@ let saveForContext = (tabsToSave, contextName) => {
   localStorage.setItem('TYP_StorageWrapper', JSON.stringify(storageWrapper));
 }
 
-let reloadTabs = () => {
+let reloadTabs = (newContext) => {
   let storageWrapper = getStorageContext();
 
   if (storageWrapper) {
-    saveForContext(currentContext);
+    saveForContext(newContext);
     removeAllTabs().then(tempTab => {
       loadTabsFromContext().then((val) => {
         browser.tabs.remove(tempTab.id);
