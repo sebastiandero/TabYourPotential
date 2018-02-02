@@ -42,9 +42,9 @@ let reloadTabs = (newContext) => {
   let storageWrapper = getStorageContext();
 
   if (storageWrapper) {
-    saveForContext(newContext);
+    saveForContext(currentContext);
     removeAllTabs().then(tempTab => {
-      loadTabsFromContext().then((val) => {
+      loadTabsFromContext(newContext).then((val) => {
         browser.tabs.remove(tempTab.id);
       });
     });
