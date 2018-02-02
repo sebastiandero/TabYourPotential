@@ -8,12 +8,12 @@ let getStorageContext = () => {
   return JSON.parse(localStorage.getItem('TYP_StorageWrapper'));
 }
 
+let setStorageContext = storageWrapper => {
+  localStorage.setItem('TYP_StorageWrapper', JSON.stringify(storageWrapper));
+}
+
 let saveTabs = (contextName) => {
   browser.tabs.query({}).then(arr => saveForContext(arr, contextName));
-};
-
-let loadTabs = () => {
-
 };
 
 let saveForContext = (tabsToSave, contextName) => {
@@ -65,6 +65,6 @@ let removeAllTabs = () => {
 
 let loadTabsFromContext = (contextName) => {
   return new Promise((resolve,reject)=> {
-    let storageWrapper = JSON.parse()
+    let storageWrapper = getStorageContext();
   });
 }
