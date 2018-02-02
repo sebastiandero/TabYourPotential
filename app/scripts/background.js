@@ -43,16 +43,22 @@ let reloadTabs = () => {
 
   if (storageWrapper) {
     saveForContext(currentContext);
-    removeAllTabs();
-    loadTabsForContext();
+    removeAllTabs().then(tempTab => {
+      loadTabsFromContext();
+      browser.tabs.remove(tempTab.id);
+    });
   }
 };
 
 let removeAllTabs = () => {
   return new Promise((resolve, reject) => {
-
     browser.tabs.query({}).then(arr => {
-      browser.tabs.discard(arr.map(tab => tab.id));
+      return browser.tabs.create({});
+    }).catch(reject)
+    .then((tempTab) => {
+      browser.tabs.remove(arr. map(tab => tab.id))
+      .catch(reject)
+      .then(() => resolve(tempTab));
     });
   });
 }
