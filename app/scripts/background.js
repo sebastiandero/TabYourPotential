@@ -2,6 +2,8 @@ browser.runtime.onInstalled.addListener((details) => {
   console.log('previousVersion', details.previousVersion)
 })
 
+let currentContext = "testContext";
+
 let saveTabs = (contextName) => {
   browser.tabs.query({}).then(arr => saveForContext(arr, contextName));
 };
@@ -40,7 +42,9 @@ let reloadTabs = () => {
   let storageWrapper = JSON.parse(localStorage.getItem('TYP_StorageWrapper'));
 
   if (storageWrapper) {
-    browser.tabs
+    saveForContext(currentContext);
+    removeAllTabs();
+    loadTabsForContext();
   }
 };
 
