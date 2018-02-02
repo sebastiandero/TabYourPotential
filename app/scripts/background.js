@@ -14,7 +14,7 @@ let loadTabs = () => {
   });
 };
 
-let saveForContext = (tabs, contextName) => {
+let saveForContext = (tabsToSave, contextName) => {
 
   let tabsContext = {
     tabs: tabsToSave,
@@ -31,7 +31,7 @@ let saveForContext = (tabs, contextName) => {
       contexts: {}
     };
 
-    storageWrapper.contexts[contextName] = tabs; 
+    storageWrapper.contexts[contextName] = tabs;
   }
  
   localStorage.setItem('TYP_StorageWrapper', JSON.stringify(storageWrapper));
