@@ -3,7 +3,7 @@ browser.runtime.onInstalled.addListener((details) => {
 });
 
 let saveTabs = () => {
-  browser.tabs.query({}).then(save);
+  browser.tabs.query({}).then(arr => saveForContext(arr, "testContext"));
 };
 
 let loadTabs = () => {
@@ -12,11 +12,11 @@ let loadTabs = () => {
   });
 };
 
-let save = (tabsToSave) => {
+let saveForContext = (tabs, context) => {
 
   let tabsContext = {
     tabs: tabsToSave,
-    name: ""
+    name: context
   };
 
   let storageWrapper = {
